@@ -52,3 +52,15 @@ header::after {
   max-width: 600px;
   border: 2px solid lightgrey;
 }
+
+.notediv{
+  display: inline;
+}
+h4{
+  display: inline-block;
+}
+.cb{
+  float:right;
+  width: 30px;
+  height: 30px;
+}
