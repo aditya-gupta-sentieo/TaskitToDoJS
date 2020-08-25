@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskit</title>
+    <meta name="description" content="To-do list in JS">
+    <meta name="author" content="Aditya">
+
+    <link rel="stylesheet" href="styles.css">
+
+  </head>
+
+  <body>
+    <header class="header" role="banner">
+
+
+      <div class="title">Taskit</div>
+      <div class="tagline-search-wrapper">
+
+      <div class="c tagline">To-do list in JS</div>
+        <div class = "header-search-field">
+          <input type="search" id="search-keywords" placeholder="Search">
+        </div>
+      </div>
+    </header>
+    <div class="notes-container">
+      <ul id="notes-list" class="notes-list">
+        <!-- <li class="note">This is a todo item</li> -->
+        <!-- <li class="note">This is a todo item 2</li> -->
+        <!-- <li class="note">This is a todo item 3</li> -->
+      </ul>
+    </div>
+
+    <script>
+        function Note(id,title,description,done){
+          this.id=id;
+          this.title=title;
+          this.description=description;
+          this.done=done;
+
+          this.isDone = function(){
+            return done;
+          }
+          this.toString = function(){
+            return "Note #" + this.id + " : " + this.title + " : " + this.description + " Completed?: "+ this.done;
+          }
+          this.createListItem = function(){
+            var li = document.createElement('li');
+
+            li.textContent = this.title;
+            li.setAttribute("desc",this.description);
+            li.setAttribute("id","note"+this.id);
+            li.setAttribute("done",this.done)
+            li.addEventListener("click", this.click);
+            li.className+="note";
+            return li;
+          }
+          <!-- this.click = function(){
+            console.log("this is " + this);
+            var div = document.createElement('li');
+            div.innerHTML = this.description;
+            var notesList = document.getElementById("notes-list");
+            notesList.appendChild(div);
+          } -->
+        }
+
+        var note1 = new Note(1,"This is a dynamic note title","Lorem ipsum all that bs",false);
+        var note2 = new Note(2,"This is a dynamic note title #2","Lorem ipsum all that bs",false);
+        var notesArray = [note1,note2];
+        for(i in notesArray){
+          note = notesArray[i];
+          <!-- var li = note.createListItem(); -->
+          var notesList = document.getElementById("notes-list");
+          notesList.appendChild(note.createListItem());
+        }
+
+
+    </script>
+  </body>
+</html>
