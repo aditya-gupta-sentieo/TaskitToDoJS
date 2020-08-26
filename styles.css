@@ -6,20 +6,22 @@ body {
 }
 .tagline{
 	font-size: 24px;
-	color: #1212ff;
+	color: white;
 	/* display: inline-block; */
 	margin: 0 auto;
 
 }
 
+
 .title{
 	font-size: 48px;
-	color: #2121ee;
+	color: white;
 	font-family: sans-serif;
 }
 header {
 	text-align: center;
 	z-index:1000;
+  background-color: #2121ee;
 }
 
 header::after {

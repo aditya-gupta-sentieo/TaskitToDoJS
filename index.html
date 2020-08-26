@@ -23,15 +23,21 @@
       <div class="title">Taskit</div>
       <div class="c tagline">To-do list in JS</div>
       <input type="search" id="search-keywords" placeholder="Search">
-  
+
     </header>
+
     <div class="notes-container">
+      <div class ="notes-actions">
+        <label for="hide-done" >Hide completed</label>
+        <input type="checkbox" id="hide-done" onclick="displayOrHideCompleted()"/>
+      </div>
       <h4>Todos remaining: <em id="todo-count"></em></h4>
       <ul id="notes-list" class="notes-list">
       </ul>
       <form id="create-note-form" action="javascript:void(0)" onsubmit="createNote()" >
 
         <input type="text" placeholder="New to-do" id="new-note-input"/>
+        <input type="text" placeholder="Description" id="new-note-desc-input"/>
         <button type="submit" id="add-note">Create Note</button>
       </form>
       <button type="#" id="displayArray" onclick="displayArray()">Console Log Array</button>
@@ -63,6 +69,7 @@
             var checkbox = document.createElement('input');
             checkbox.className+="cb";
             checkbox.setAttribute("type","checkbox");
+            checkbox.checked = this.done;
 
             noteDiv.appendChild(checkbox);
 
@@ -71,6 +78,8 @@
             li.addEventListener("click", function(){
               note.done = !note.done;
               checkbox.checked = note.done;
+
+              li.setAttribute("done",note.done);
               if(note.done){
                 title.style.textDecoration="line-through";
                 description.style.textDecoration="line-through";
@@ -109,7 +118,7 @@
 
 
             li.setAttribute("desc",this.description);
-            li.setAttribute("id","note"+this.id);
+            li.setAttribute("id","note-"+this.id);
             li.setAttribute("done",this.done)
 
             li.className+="note";
@@ -149,8 +158,12 @@
           var inputEle = document.getElementById("new-note-input")
           var newTitle = inputEle.value;
           if(newTitle=="")return;
+
+          var descEle = document.getElementById("new-note-desc-input")
+          var newDesc = descEle.value;
           inputEle.value = "";
-          var newNote = new Note(5,newTitle,"Self created description",false);
+          descEle.value = "";
+          var newNote = new Note(5,newTitle,newDesc,false);
           notesArray.push(newNote);
           appendNewNote(newNote);
         }
@@ -163,7 +176,27 @@
         function updateTodoCount(){
           var todoEle = document.getElementById("todo-count");
           todoEle.innerHTML=notesArray.filter(x=>!x.done).length.toString();
+          displayOrHideCompleted();
         }
+        function displayOrHideCompleted(){
+          var hide = document.getElementById("hide-done").checked;
+          console.log("hide is " + hide);
+          var noteList = document.getElementById("notes-list").getElementsByTagName("li");
+          console.log(noteList);
+          for(var i=0;i<noteList.length;i++){
+            var item = noteList[i];
+            var done = item.getAttribute("done")=="true";
+            console.log("item is "+item);
+            console.log("done is " + done);
+            if(hide&&done){
+              item.style.display="none";
+            }
+            else{
+              item.style.display="block";
+            }
+            // item.style.display = (hide && done)?"none":"block";
+        }
+      }
 
         function deleteNote(note){
 
