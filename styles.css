@@ -1,22 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
 body {
 	margin: 0;
-	/* padding: 4px; */
 	font-family: 'Work Sans', sans-serif;
 	font-weight: 800;
 }
 .tagline{
 	font-size: 24px;
 	color: white;
-	/* display: inline-block; */
 	margin: 0 auto;
 
 }
 .notes-actions{
 	margin-top: 24px;
 	margin-bottom: 24px;
-	/* margin:24px; */
-	/* background-color: #2121ee; */
 }
 input[type="text"]{
 	height: 3em;
@@ -84,7 +80,6 @@ h4{
   padding-left: 8px;
 }
 .cb{
-  /* float:right; */
   width: 15px;
   height: 15px;
 }
