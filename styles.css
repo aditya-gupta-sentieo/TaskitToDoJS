@@ -4,24 +4,12 @@ body {
 	font-family: 'Work Sans', sans-serif;
 	font-weight: 800;
 }
-.header-search-field{
-	margin-right: 16px;
-		margin-left: auto;
-		position:absolute;
-		right:0;
-		flex: 1;
-}
 .tagline{
 	font-size: 24px;
 	color: #1212ff;
-	display: inline-block;
+	/* display: inline-block; */
 	margin: 0 auto;
 
-}
-.tagline-search-wrapper{
-	display:flex;
-	position: relative;
-	justify-content: center;
 }
 
 .title{
@@ -41,16 +29,16 @@ header::after {
 }
 .notes-container{
   margin:0 auto;
+  max-width: 600px;
 }
 .notes-list{
   list-style:none;
 }
 .note{
-  padding: 24px;
-  margin:0 auto;
+  padding: 8px;
   margin-bottom: 24px;
-  max-width: 600px;
   border: 2px solid lightgrey;
+   cursor: pointer;
 }
 
 .notediv{
@@ -58,9 +46,20 @@ header::after {
 }
 h4{
   display: inline-block;
+  padding-left: 8px;
 }
 .cb{
+  /* float:right; */
+  width: 20px;
+  height: 20px;
+}
+.del{
   float:right;
   width: 30px;
   height: 30px;
+  padding: 8px;
+  color: red;
+}
+.del:hover{
+  border:1px solid red;
 }

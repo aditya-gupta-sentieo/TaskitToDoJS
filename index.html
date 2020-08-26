@@ -11,6 +11,9 @@
 
     <link rel="stylesheet" href="styles.css">
 
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   </head>
 
   <body>
@@ -18,22 +21,19 @@
 
 
       <div class="title">Taskit</div>
-      <div class="tagline-search-wrapper">
-
       <div class="c tagline">To-do list in JS</div>
-        <div class = "header-search-field">
-          <input type="search" id="search-keywords" placeholder="Search">
-        </div>
-      </div>
+      <input type="search" id="search-keywords" placeholder="Search">
+  
     </header>
     <div class="notes-container">
+      <h4>Todos remaining: <em id="todo-count"></em></h4>
       <ul id="notes-list" class="notes-list">
-        <!-- <li class="note">This is a todo item</li> -->
-        <!-- <li class="note">This is a todo item 2</li> -->
-        <!-- <li class="note">This is a todo item 3</li> -->
       </ul>
-      <input type="text" placeholder="New to-do" id="new-note-input"/>
-      <button type="#" id="add-note" onclick="createNote()">Create Note</button>
+      <form id="create-note-form" action="javascript:void(0)" onsubmit="createNote()" >
+
+        <input type="text" placeholder="New to-do" id="new-note-input"/>
+        <button type="submit" id="add-note">Create Note</button>
+      </form>
       <button type="#" id="displayArray" onclick="displayArray()">Console Log Array</button>
     </div>
 
@@ -56,7 +56,6 @@
             noteDiv.className += "notediv";
             var title = document.createElement('h4');
             title.innerHTML = this.title;
-            noteDiv.appendChild(title);
             var note = this;
             var description = document.createElement('h6');
             description.innerHTML = this.description;
@@ -64,8 +63,14 @@
             var checkbox = document.createElement('input');
             checkbox.className+="cb";
             checkbox.setAttribute("type","checkbox");
-            checkbox.addEventListener("click", function(){
+
+            noteDiv.appendChild(checkbox);
+
+            noteDiv.appendChild(title);
+
+            li.addEventListener("click", function(){
               note.done = !note.done;
+              checkbox.checked = note.done;
               if(note.done){
                 title.style.textDecoration="line-through";
                 description.style.textDecoration="line-through";
@@ -82,10 +87,23 @@
               //TODO Why is this != the note but is = li element
               div.innerHTML = note.title + " was clicked";
               var notesList = document.getElementById("notes-list");
+              updateTodoCount();
               // notesList.appendChild(div);
 
             });
-            noteDiv.appendChild(checkbox);
+
+            var del = document.createElement("i");
+            del.className +="del material-icons";
+            del.innerHTML="delete";
+            del.addEventListener("click",
+              function(){
+                event.stopPropagation();
+                deleteNote(note);
+                li.remove();
+                updateTodoCount();
+              }
+            );
+            noteDiv.appendChild(del);
 
             noteDiv.appendChild(description);
 
@@ -130,14 +148,34 @@
         function createNote(){
           var inputEle = document.getElementById("new-note-input")
           var newTitle = inputEle.value;
+          if(newTitle=="")return;
           inputEle.value = "";
           var newNote = new Note(5,newTitle,"Self created description",false);
+          notesArray.push(newNote);
           appendNewNote(newNote);
         }
         function appendNewNote(note){
           var notesList = document.getElementById("notes-list");
           notesList.appendChild(note.createListItem());
+          updateTodoCount();
 
+        }
+        function updateTodoCount(){
+          var todoEle = document.getElementById("todo-count");
+          todoEle.innerHTML=notesArray.filter(x=>!x.done).length.toString();
+        }
+
+        function deleteNote(note){
+
+            console.log("note to be deleted is " + note);
+            removeFromArray(notesArray,note);
+        }
+        function removeFromArray(array,item){
+          for(var i=0;i<array.length;i++){
+            if(array[i]===item){
+              array.splice(i,1);
+            }
+          }
         }
 
 
